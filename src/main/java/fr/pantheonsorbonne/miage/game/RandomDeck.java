@@ -35,4 +35,35 @@ public class RandomDeck implements Deck {
         return result;
     }
 
+    @Override 
+    public void shuffle(){
+        List<Card> shuffledList = new ArrayList<>(deck);
+        Collections.shuffle(shuffledList);
+        deck.clear();
+        deck.addAll(shuffledList);
+    }
+
+
+
+    @Override
+    public List<Card[]> dealCards(int players) {
+        List<Card[]> hands = new ArrayList<>();
+        int cardsPerPlayer = this.deck.size() / players;
+
+        for (int i = 0; i < players; i++) {
+            Card[] hand = new Card[cardsPerPlayer];
+            for (int j = 0; j < cardsPerPlayer; j++) {
+                hand[j] = this.deck.poll();
+            }
+            hands.add(hand);
+        }
+        return hands;
+    }
+
+    
+
+    public List<Card> getAllCards() {
+        return new ArrayList<>(this.deck);
+    }
+
 }

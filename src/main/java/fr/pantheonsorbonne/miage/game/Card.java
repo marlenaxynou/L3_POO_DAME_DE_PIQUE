@@ -80,6 +80,10 @@ public class Card {
         return possibleCards;
     }
 
+    public boolean estDameDePique() {
+        return this.color == CardColor.SPADE && this.value == CardValue.QUEEN;
+    }
+    /*
     public String toFancyString() {
         int rank = this.getValue().ordinal();
         if (rank > 10) {
@@ -87,6 +91,9 @@ public class Card {
         }
         return new String(Character.toChars(this.color.getCode() + rank));
     }
+    
+    */
+    
 
     @Override
     public int hashCode() {
