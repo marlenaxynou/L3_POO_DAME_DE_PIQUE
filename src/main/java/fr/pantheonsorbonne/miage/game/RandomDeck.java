@@ -19,9 +19,7 @@ public class RandomDeck implements Deck {
         //shuffle
         Collections.shuffle(cards);
         //associate with the deck
-        for (int i = 0; i < cards.size(); i++) {
-            this.deck.offer(cards.get(i));
-        }
+        this.deck.addAll(cards);
 
     }
 
