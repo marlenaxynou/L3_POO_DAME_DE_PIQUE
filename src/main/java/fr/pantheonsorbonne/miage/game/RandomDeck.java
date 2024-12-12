@@ -2,6 +2,9 @@ package fr.pantheonsorbonne.miage.game;
 
 import java.util.*;
 
+import fr.pantheonsorbonne.miage.enums.CardColor;
+import fr.pantheonsorbonne.miage.enums.CardValue;
+
 /**
  * Represents a Deck of cards
  */
@@ -16,10 +19,13 @@ public class RandomDeck implements Deck {
 
         //generate all cards
         List<Card> cards = Card.getAllPossibleCards();
+        cards.add(new Card(CardValue.JOKER, CardColor.NONE)); // Ajout du Joker
         //shuffle
         Collections.shuffle(cards);
         //associate with the deck
-        this.deck.addAll(cards);
+        for (int i = 0; i < cards.size(); i++) {
+            this.deck.offer(cards.get(i));
+        }
 
     }
 
