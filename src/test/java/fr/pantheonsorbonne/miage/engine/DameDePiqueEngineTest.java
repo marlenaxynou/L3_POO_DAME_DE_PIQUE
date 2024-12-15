@@ -12,7 +12,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WarGameEngineTest {
+class DameDePiqueEngineTest {
 
     WarGameEngine engine;
     Queue<String> players;

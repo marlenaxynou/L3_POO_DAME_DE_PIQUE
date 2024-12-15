@@ -1,34 +1,34 @@
 package fr.pantheonsorbonne.miage.enums;
 
-/**
- * List the possible colors of a card
- */
 public enum CardColor {
-    SPADE(127137),
-    HEART(127137 + 16),
-    DIAMOND(127137 + 16 * 2),
-    CLUB(127137 + 16 * 3);
+    HEARTS("H", "\u2665"),   // ♥
+    DIAMONDS("D", "\u2666"), // ♦
+    CLUBS("C", "\u2663"),    // ♣
+    SPADES("S", "\u2660"),   // ♠
+    NONE("", "");            // Used for Joker
 
-    private final int code;
+    private final String symbol;
+    private final String unicodeSymbol;
 
-    CardColor(int code) {
-        this.code = code;
+    CardColor(String symbol, String unicodeSymbol) {
+        this.symbol = symbol;
+        this.unicodeSymbol = unicodeSymbol;
     }
 
-    public static CardColor valueOfStr(String substring) {
-        for (CardColor color : CardColor.values()) {
-            if (color.name().substring(0, 1).equals(substring)) {
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getUnicodeSymbol() {
+        return unicodeSymbol;
+    }
+
+    public static CardColor fromSymbol(String symbol) {
+        for (CardColor color : values()) {
+            if (color.symbol.equals(symbol)) {
                 return color;
             }
         }
-        throw new RuntimeException("No Such Color");
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getStringRepresentation() {
-        return "" + this.name().charAt(0);
+        throw new IllegalArgumentException("Invalid card color symbol: " + symbol);
     }
 }
