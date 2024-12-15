@@ -1,5 +1,6 @@
 package fr.pantheonsorbonne.miage.game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -31,5 +32,15 @@ public class Player {
     @Override
     public String toString() {
         return name + " (Score: " + score + ")";
+    }
+
+    public void receiveCards(Card[] cards) {
+        // TODO Auto-generated method stub
+       if(hand == null){
+        hand = new ArrayList<>();
+       }
+       for(Card card : cards) {
+        hand.add(card);
+       }
     }
 }
