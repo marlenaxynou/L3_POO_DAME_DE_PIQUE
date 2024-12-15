@@ -3,48 +3,94 @@ package fr.pantheonsorbonne.miage.game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
-import java.util.LinkedList;
-import java.util.Arrays;
 
-public class DeterministDeck implements Deck {
 
-    private final Queue<Card> cards = new LinkedList<>();
 
-    public DeterministDeck(Card... cards) {
-        this.cards.addAll(Arrays.asList(cards));
+
+public class DeterministDeck extends Deck {
+
+    private final List<Card> predeterminedCards;
+
+    /**
+     * Constructor to initialize a deterministic deck with a predefined order of cards.
+     *
+     * @param predeterminedCards The fixed order of cards for the deck.
+     */
+    public DeterministDeck(List<Card> predeterminedCards) {
+        this.predeterminedCards = new ArrayList<>(predeterminedCards);
     }
 
-    @Override
-    public Card[] getCards(int length) {
-        Card[] res = new Card[length];
-        for (int i = 0; i < length; i++) {
-            res[i] = this.cards.poll();
-        }
-        return res;
-    }
-
+    /**
+     * Overrides the shuffle method to keep the deck in a predetermined order.
+     */
     @Override
     public void shuffle() {
+        // Do nothing to maintain the predetermined order.
     }
 
+    /**
+     * Deals cards to players in the predetermined order.
+     *
+     * @param numPlayers The number of players to deal cards to.
+     * @return A list of hands, where each hand is a list of cards for a player.
+     * @throws IllegalArgumentException If the number of players is invalid or cards can't be distributed evenly.
+     */
     @Override
-    public List<Card[]> dealCards(int players) {
-        List<Card[]> hands = new ArrayList<>();
-        int cardsPerPlayer = this.cards.size() / players;
-        
-        for (int i = 0; i < players; i++) {
-            Card[] hand = new Card[cardsPerPlayer];
-            for (int j = 0; j < cardsPerPlayer; j++) {
-                hand[j] = this.cards.poll();
-            }
-            hands.add(hand);
+    public List<List<Card>> deal(int numPlayers) {
+        if (numPlayers <= 0 || this.predeterminedCards.size() % numPlayers != 0) {
+            throw new IllegalArgumentException("Cannot evenly distribute cards among players.");
         }
+
+        List<List<Card>> hands = new ArrayList<>();
+        int cardsPerPlayer = this.predeterminedCards.size() / numPlayers;
+
+        for (int i = 0; i < numPlayers; i++) {
+            hands.add(new ArrayList<>(this.predeterminedCards.subList(i * cardsPerPlayer, (i + 1) * cardsPerPlayer)));
+        }
+
         return hands;
     }
 
+    /**
+     * Draws the top card from the predetermined deck.
+     *
+     * @return The top card.
+     * @throws IllegalStateException If the deck is empty.
+     */
     @Override
-    public List<Card> getAllCards() {
-        return new ArrayList<>(this.cards);
+    public Card draw() {
+        if (this.predeterminedCards.isEmpty()) {
+            throw new IllegalStateException("No more cards in the predetermined deck.");
+        }
+        return this.predeterminedCards.remove(0);
+    }
+
+    /**
+     * Returns the number of remaining cards in the predetermined deck.
+     *
+     * @return The number of cards remaining.
+     */
+    @Override
+    public int size() {
+        return this.predeterminedCards.size();
+    }
+
+    /**
+     * Returns the list of all cards in the predetermined deck (useful for debugging).
+     *
+     * @return The list of predetermined cards.
+     */
+    @Override
+    public List<Card> getCards() {
+        return new ArrayList<>(this.predeterminedCards); // Return a copy to preserve encapsulation
+    }
+
+    /**
+     * Resets the deck to its original predetermined state.
+     */
+    @Override
+    public void reset() {
+        this.predeterminedCards.clear();
+        this.predeterminedCards.addAll(Card.getAllPossibleCards());
     }
 }
