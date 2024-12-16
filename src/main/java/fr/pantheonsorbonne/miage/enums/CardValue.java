@@ -14,7 +14,8 @@ public enum CardValue {
     TEN("10"),
     JACK("J"),
     QUEEN("Q"),
-    KING("K"), JOKER("JOKER");
+    KING("K"), 
+    JOKER("JOKER");
 
     private final String symbol;
 
