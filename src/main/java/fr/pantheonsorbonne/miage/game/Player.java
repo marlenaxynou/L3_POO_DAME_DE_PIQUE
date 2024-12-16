@@ -1,6 +1,6 @@
 package fr.pantheonsorbonne.miage.game;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 public class Player {
@@ -12,6 +12,7 @@ public class Player {
         this.name = name;
         this.score = 0;
     }
+    
 
     public void setHand(List<Card> hand) {
         this.hand = hand;
@@ -29,18 +30,23 @@ public class Player {
         return score;
     }
 
+    // Method to check if the player has no cards left
+    public boolean hasNoCards() {
+        return hand == null || hand.isEmpty();
+    }
+
+    // Method to notify winner (only applicable for network players)
+    public void notifyWinner(Player winner) throws IOException {
+        // Implement logic to notify the player about the winner (could be network-based)
+        System.out.println(this.name + " is notified that " + winner.getName() + " won.");
+    }
+
     @Override
     public String toString() {
         return name + " (Score: " + score + ")";
     }
 
-    public void receiveCards(Card[] cards) {
-        // TODO Auto-generated method stub
-       if(hand == null){
-        hand = new ArrayList<>();
-       }
-       for(Card card : cards) {
-        hand.add(card);
-       }
+    public String getName() {
+        return name;
     }
 }
