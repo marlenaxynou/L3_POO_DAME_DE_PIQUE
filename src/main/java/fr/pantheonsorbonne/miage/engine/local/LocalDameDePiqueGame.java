@@ -2,107 +2,81 @@ package fr.pantheonsorbonne.miage.engine.local;
 
 import fr.pantheonsorbonne.miage.engine.DameDePiqueGameEngine;
 import fr.pantheonsorbonne.miage.game.Card;
-import fr.pantheonsorbonne.miage.game.Deck;
 import fr.pantheonsorbonne.miage.game.Player;
 import fr.pantheonsorbonne.miage.game.RandomDeck;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
 
-    private final List<Player> initialPlayers;
-    private final Map<Player, Queue<Card>> playerCards = new HashMap<>();
-    private Card jokerCard;
+    private final Map<Player, Queue<Card>> playerHands = new HashMap<>();
 
-    public LocalDameDePiqueGame(Deck deck, List<Player> initialPlayers) {
-        super(deck, initialPlayers);
-        this.initialPlayers = initialPlayers;
-        for (Player player : initialPlayers) {
-            playerCards.put(player, new LinkedList<>());
+    public LocalDameDePiqueGame(RandomDeck deck, List<Player> players) {
+        super(deck, players);
+        distributeCards(deck, players);
+    }
+
+    private void distributeCards(RandomDeck deck, List<Player> players) {
+        List<List<Card>> hands = Card.dealCards(deck.getAllCards(), players.size());
+        for (int i = 0; i < players.size(); i++) {
+            playerHands.put(players.get(i), new LinkedList<>(hands.get(i)));
         }
     }
 
-    public static void main(String... args) {
-        
-        List<Player> players = Arrays.asList(new Player("Joueur1"), new Player("Joueur2"), new Player("Joueur3"));
-        LocalDameDePiqueGame game = new LocalDameDePiqueGame(new RandomDeck(), players);
+    public static void main(String[] args) {
+        List<Player> players = Arrays.asList(
+                new Player("Joueur1"),
+                new Player("Joueur2"),
+                new Player("Joueur3"),
+                new Player("Joueur4")
+        );
+
+        RandomDeck deck = new RandomDeck();
+        deck.shuffle();
+
+        System.out.println("=== Début de la partie de Dame de Pique ===\n");
+        LocalDameDePiqueGame game = new LocalDameDePiqueGame(deck, players);
         game.play();
         System.exit(0);
     }
 
     @Override
-    protected void initializeGame() {
-        
-        List<Card[]> hands = getDeck().dealCards(initialPlayers.size());
-        for (int i = 0; i < initialPlayers.size(); i++) {
-            initialPlayers.get(i).receiveCards(hands.get(i));
-        }
-
-        // Déterminer la carte Joker
-        determineJokerCard();
-    }
-
-    @Override
-    protected void determineJokerCard() {
-        List<Card> nonPointCards = new ArrayList<>();
-        for (Card card : getDeck().getAllCards()) {
-            if (!isPointCard(card)) {
-                nonPointCards.add(card);
-            }
-        }
-        jokerCard = nonPointCards.get(new Random().nextInt(nonPointCards.size()));
-        System.out.println("Joker card is: " + jokerCard);
-    }
-
-    @Override
     protected void playTurn(Player player) {
-        
-        System.out.println(player.getName() + " is playing their turn");
-        
+        System.out.println("\n" + player.getName() + " joue son tour :");
+
+        // Afficher les cartes restantes du joueur
+        System.out.println("Cartes en main : " + cardsToString(playerHands.get(player)));
+
+        // Jouer une carte
+        Card playedCard = playerHands.get(player).poll();
+        if (playedCard != null) {
+            System.out.println(player.getName() + " a joué la carte : " + playedCard.toFancyString());
+        } else {
+            System.out.println(player.getName() + " n'a plus de cartes.");
+        }
     }
 
     @Override
     protected boolean isGameOver() {
-        
-        return false;  
-    }
-
-    @Override
-    protected void declareWinner(Player winner) {
-        System.out.println(winner.getName() + " has won the game!");
+        return playerHands.values().stream().allMatch(Queue::isEmpty);
     }
 
     @Override
     protected Player determineWinner() {
-        
-        return initialPlayers.get(0);  
-    }
-
-    private boolean isPointCard(Card card) {
-        
-        return card.getColor().equals("HEART") || (card.getColor().equals("SPADE") && card.getValue().getStringRepresentation().equals("Q"));
+        // Simple détermination basée sur le score (ou premier joueur)
+        return getPlayers().stream().max(Comparator.comparingInt(Player::getScore)).orElse(getPlayers().get(0));
     }
 
     @Override
-    protected void giveCardsToPlayer(Collection<Card> roundStack, Player winner) {
-        
-        List<Card> cards = new ArrayList<>(roundStack);
-        Collections.shuffle(cards);
-        playerCards.get(winner).addAll(cards);
+    protected void declareWinner(Player winner) {
+        System.out.println("\n>>> Le gagnant est " + winner.getName() + " avec un score de " + winner.getScore() + " points ! <<<");
     }
 
-    @Override
-    protected Card getCardFromPlayer(Player player) {
-        
-        if (!playerCards.containsKey(player) || playerCards.get(player).isEmpty()) {
-            return null;  
+    private String cardsToString(Queue<Card> cards) {
+        StringBuilder sb = new StringBuilder();
+        for (Card card : cards) {
+            sb.append(card.toFancyString()).append(" ");
         }
-        return playerCards.get(player).poll();
-    }
-
-
-    public Card getJokerCard() {
-        return jokerCard;
+        return sb.toString().trim();
     }
 }
