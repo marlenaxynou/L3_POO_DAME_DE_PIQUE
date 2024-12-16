@@ -31,8 +31,5 @@ public enum CardColor {
         }
         throw new IllegalArgumentException("Invalid card color symbol: " + symbol);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a064f94c479c83cf03bb3b65836f9f18f23aac80
+
