@@ -44,10 +44,8 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
     protected void playTurn(Player player) {
         System.out.println("\n" + player.getName() + " joue son tour :");
 
-        // Afficher les cartes restantes du joueur
         System.out.println("Cartes en main : " + cardsToString(playerHands.get(player)));
 
-        // Jouer une carte
         Card playedCard = playerHands.get(player).poll();
         if (playedCard != null) {
             System.out.println(player.getName() + " a joué la carte : " + playedCard.toFancyString());
@@ -58,14 +56,28 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
 
     @Override
     protected boolean isGameOver() {
-        return playerHands.values().stream().allMatch(Queue::isEmpty);
+        for (Queue<Card> hand : playerHands.values()) {
+            if (!hand.isEmpty()) {
+                return false; 
+            }
+        }
+        return true;
     }
+    
 
     @Override
     protected Player determineWinner() {
-        // Simple détermination basée sur le score (ou premier joueur)
-        return getPlayers().stream().max(Comparator.comparingInt(Player::getScore)).orElse(getPlayers().get(0));
+        Player winner = getPlayers().get(0);
+    
+        for (Player player : getPlayers()) {
+            if (player.getScore() < winner.getScore()) {
+                winner = player; 
+            }
+        }
+    
+        return winner;
     }
+    
 
     @Override
     protected void declareWinner(Player winner) {
@@ -78,5 +90,11 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
             sb.append(card.toFancyString()).append(" ");
         }
         return sb.toString().trim();
+    }
+
+    @Override
+    protected List<String> getInitialPlayers() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getInitialPlayers'");
     }
 }
