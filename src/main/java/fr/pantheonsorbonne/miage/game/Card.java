@@ -13,9 +13,12 @@ public class Card {
     private final CardColor color;  
     private final CardValue value;
 
-    
     public Card(CardColor color, CardValue value) {
-        this.color = color;
+        if (value == CardValue.JOKER) {
+            this.color = CardColor.NONE;
+        } else {
+            this.color = color;
+        }
         this.value = value;
     }
 
@@ -97,7 +100,6 @@ public class Card {
     }
 
     public String toFancyString() {
-        if (this.value == CardValue.JOKER) return "🃏";
         return this.value.getSymbol() + this.color.getUnicodeSymbol();
     }
 

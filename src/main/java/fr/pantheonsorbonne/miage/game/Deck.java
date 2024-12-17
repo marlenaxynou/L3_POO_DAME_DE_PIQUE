@@ -17,7 +17,11 @@ public abstract class Deck {
     protected void initializeDeck() {
         for (CardColor color : CardColor.values()) {
             for (CardValue value : CardValue.values()) {
-                cards.add(new Card(color, value));
+                if (value == CardValue.JOKER) {
+                    cards.add(new Card(CardColor.NONE, value));
+                } else {
+                    cards.add(new Card(color, value));
+                }
             }
         }
     }
@@ -31,4 +35,6 @@ public abstract class Deck {
     }
 
     public abstract List<Card[]> dealCards(int numberOfPlayers);
+
+    public abstract Card drawCard() throws NoMoreCardException;
 }

@@ -5,7 +5,7 @@ public enum CardColor {
     DIAMONDS("D", "\u2666"), // ♦
     CLUBS("C", "\u2663"),    // ♣
     SPADES("S", "\u2660"),   // ♠
-    NONE("", "joker");            // Used for Joker
+    NONE("", "");         // Joker
 
     private final String symbol;
     private final String unicodeSymbol;

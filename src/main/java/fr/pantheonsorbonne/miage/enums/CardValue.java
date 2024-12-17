@@ -2,25 +2,26 @@ package fr.pantheonsorbonne.miage.enums;
 
 
 public enum CardValue {
-    ACE("A"),
-    TWO("2"),
-    THREE("3"),
-    FOUR("4"),
-    FIVE("5"),
-    SIX("6"),
-    SEVEN("7"),
-    EIGHT("8"),
-    NINE("9"),
-    TEN("10"),
-    JACK("J"),
-    QUEEN("Q"),
-    KING("K"), 
-    JOKER("JOKER");
+    ACE("1", 14),
+    TWO("2", 2),
+    THREE("3", 3),
+    FOUR("4", 4),
+    FIVE("5", 5),
+    SIX("6", 6),
+    SEVEN("7", 7),
+    EIGHT("8", 8),
+    NINE("9", 9),
+    TEN("10", 10),
+    JACK("J", 11),
+    QUEEN("Q", 12),
+    KING("K", 13),
+    JOKER("Joker", 1);
 
     private final String symbol;
-
-    CardValue(String symbol) {
+    private final int value;
+    CardValue(String symbol, int value) {
         this.symbol = symbol;
+        this.value = value;
     }
 
     public static CardValue fromSymbol(String symbol) {

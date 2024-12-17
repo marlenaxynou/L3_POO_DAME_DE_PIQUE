@@ -37,16 +37,17 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
     // Method to select the joker card randomly from cards that do not score points
     private Card pickJoker(List<Card> allCards) {
         List<Card> nonScoringCards = new ArrayList<>();
-        
+    
         // Select cards that do not score points
         for (Card card : allCards) {
             if (card.getColor() != CardColor.HEARTS && card.getValue() != CardValue.QUEEN) {
                 nonScoringCards.add(card);
             }
         }
-
-        // Return a random non-scoring card as the joker
-        return nonScoringCards.get(new Random().nextInt(nonScoringCards.size()));
+    
+        // Return a random non-scoring card as the joker and set its color to NONE
+        Card joker = nonScoringCards.get(new Random().nextInt(nonScoringCards.size()));
+        return new Card(CardColor.NONE, joker.getValue());
     }
 
     public static void main(String[] args) {
