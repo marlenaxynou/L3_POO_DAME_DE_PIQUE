@@ -35,4 +35,9 @@ public enum CardValue {
     public String getSymbol() {
         return this.symbol;
     }
+
+    public boolean endsWith(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'endsWith'");
+    }
 }

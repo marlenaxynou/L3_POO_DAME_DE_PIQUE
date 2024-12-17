@@ -28,7 +28,6 @@ public class DameDePiqueNetworkPlayer {
         dameDePiqueGame = playerFacade.autoJoinGame("DAME_DE_PIQUE");
 
         while (true) {
-            // Wait for the game command
             GameCommand command = playerFacade.receiveGameCommand(dameDePiqueGame);
             switch (command.name()) {
                 case "dealCards":
@@ -48,18 +47,15 @@ public class DameDePiqueNetworkPlayer {
         }
     }
 
-    // Handle when cards are dealt to the player
     private static void handleDealCards(GameCommand command) {
         for (Card card : Card.stringToCards(command.body())) {
             hand.offerLast(card);
         }
     }
 
-    // Handle when the player needs to play a card
     private static void handlePlayCard(GameCommand command) {
         if (command.params().get("playerId").equals(playerId)) {
             if (!hand.isEmpty()) {
-                // Play a card and send it to all players
                 Card cardToPlay = hand.pollFirst();
                 playerFacade.sendGameCommandToAll(dameDePiqueGame, new GameCommand("playedCard", cardToPlay.toString()));
             } else {
@@ -68,16 +64,12 @@ public class DameDePiqueNetworkPlayer {
         }
     }
 
-    // Handle when the player is asked to pass 3 cards (depending on the round)
     private static void handlePassCards(GameCommand command) {
-        // Assuming we receive a list of 3 cards to pass
         String passedCards = command.body();
         List<Card> cardsToPass = Card.stringToCards(passedCards);
-        // Logic to pass 3 cards to the next player (you will need to define which direction)
         playerFacade.sendGameCommandToAll(dameDePiqueGame, new GameCommand("cardsPassed", cardsToPass.stream().map(Card::toString).collect(Collectors.joining(" "))));
     }
 
-    // Handle the game over state
     private static void handleGameOverCommand(GameCommand command) {
         if (command.body().equals("win")) {
             System.out.println("I won the game!");
