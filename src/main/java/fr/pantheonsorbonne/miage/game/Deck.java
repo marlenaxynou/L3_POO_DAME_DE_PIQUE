@@ -39,5 +39,22 @@ public abstract class Deck {
     public abstract List<Card[]> dealCards(int numberOfPlayers);
 
     public abstract Card drawCard() throws NoMoreCardException;
-    
+
+    public Card[] getCards(int numberOfCards) {
+        if (numberOfCards > cards.size()) {
+            throw new IllegalArgumentException("Not enough cards in the deck.");
+        }
+        Card[] drawnCards = new Card[numberOfCards];
+        for (int i = 0; i < numberOfCards; i++) {
+            drawnCards[i] = cards.remove(0);
+        }
+        return drawnCards;
+    }
+
+    public Card getCard() {
+        if (cards.isEmpty()) {
+            return null;
+        }
+        return cards.remove(0);
+    }
 }

@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: fr.pantheonsorbonne.miage.game.DeterministDeckTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 2, Errors: 1, Skipped: 0, Time elapsed: 0.013 s <<< FAILURE! - in fr.pantheonsorbonne.miage.game.DeterministDeckTest
+fr.pantheonsorbonne.miage.game.DeterministDeckTest.testDealCards  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IllegalArgumentException: Cannot evenly distribute cards among players.
+	at fr.pantheonsorbonne.miage.game.DeterministDeckTest.testDealCards(DeterministDeckTest.java:21)
+
+fr.pantheonsorbonne.miage.game.DeterministDeckTest.testDrawCard  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <51> but was: <53>
+	at fr.pantheonsorbonne.miage.game.DeterministDeckTest.testDrawCard(DeterministDeckTest.java:33)
+
+fr.pantheonsorbonne.miage.game.DeterministDeckTest.testDrawAllCards  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected fr.pantheonsorbonne.miage.exception.NoMoreCardException to be thrown, but nothing was thrown.
+	at fr.pantheonsorbonne.miage.game.DeterministDeckTest.testDrawAllCards(DeterministDeckTest.java:42)
+

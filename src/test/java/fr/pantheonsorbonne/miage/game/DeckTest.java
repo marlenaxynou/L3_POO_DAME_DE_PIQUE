@@ -25,7 +25,6 @@ abstract class DeckTest {
 
     @Test
     void getnCards() {
-
         Card[] cards = deck.getCards(10);
         assertEquals(10, cards.length);
     }
@@ -35,12 +34,8 @@ abstract class DeckTest {
         Card card = deck.getCard();
         Card newCard = null;
         do {
-
             assertNotEquals(card, newCard);
             newCard = deck.getCard();
         } while (newCard != null);
-
     }
-
-
 }

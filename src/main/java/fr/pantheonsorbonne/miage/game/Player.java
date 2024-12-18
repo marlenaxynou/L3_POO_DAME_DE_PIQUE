@@ -3,6 +3,7 @@ package fr.pantheonsorbonne.miage.game;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Comparator;
 
 import fr.pantheonsorbonne.miage.enums.CardColor;
 import fr.pantheonsorbonne.miage.enums.CardValue;
@@ -73,10 +74,23 @@ public class Player {
      * @return The cards to pass.
      */
     public List<Card> selectCardsToPass() {
-        // TODO: Implement logic for selecting cards to pass.
-        throw new UnsupportedOperationException("Unimplemented method 'selectCardsToPass'");
-    }
+        if (hand == null || hand.size() < 3) {
+            throw new IllegalStateException("Not enough cards to pass.");
+        }
 
+        // Sort the hand by card value in descending order
+        List<Card> sortedHand = new ArrayList<>(hand);
+        sortedHand.sort(Comparator.comparing(Card::getValue).reversed());
+
+        // Select the top 3 highest-value cards to pass
+        List<Card> cardsToPass = new ArrayList<>(sortedHand.subList(0, 3));
+
+        // Remove the selected cards from the hand
+        hand.removeAll(cardsToPass);
+
+        return cardsToPass;
+    
+    }
     /**
      * Receives a card passed by another player.
      * 

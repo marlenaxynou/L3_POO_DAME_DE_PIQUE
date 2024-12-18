@@ -1,0 +1,14 @@
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/utils/ConsoleColors.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/game/DeterministDeck.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/engine/local/LocalDameDePiqueGame.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/enums/CardValue.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/engine/net/DameDePiqueNetworkEngine.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/game/RandomDeck.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/game/StandardDeck.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/exception/NoMoreCardException.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/enums/CardColor.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/game/Player.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/game/Deck.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/engine/net/DameDePiqueNetworkPlayer.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/game/Card.java
+/Users/marlenaxynou/Desktop/L3_POO_DAME_DE_PIQUE/src/main/java/fr/pantheonsorbonne/miage/engine/DameDePiqueGameEngine.java

@@ -56,10 +56,9 @@ public class DameDePiqueNetworkEngine extends DameDePiqueGameEngine {
         System.out.println("Cartes en main : " + playerHand.stream().map(Card::toFancyString).collect(Collectors.joining(" ")));
 
         if (!playerHand.isEmpty()) {
-            Card playedCard = playerHand.remove(0); // Play the first card in hand
+            Card playedCard = playerHand.remove(0);
             System.out.println(player.getName() + " a joué la carte : " + playedCard.toFancyString());
 
-            // Update the player's score based on the played card
             if (playedCard.getColor() == CardColor.HEARTS) {
                 player.addScore(1);
             } else if (playedCard.getValue() == CardValue.QUEEN && playedCard.getColor() == CardColor.SPADES) {

@@ -4,6 +4,7 @@ import fr.pantheonsorbonne.miage.engine.DameDePiqueGameEngine;
 import fr.pantheonsorbonne.miage.enums.CardColor;
 import fr.pantheonsorbonne.miage.enums.CardValue;
 import fr.pantheonsorbonne.miage.game.Card;
+import fr.pantheonsorbonne.miage.game.DeterministDeck;
 import fr.pantheonsorbonne.miage.game.Player;
 import fr.pantheonsorbonne.miage.game.RandomDeck;
 
@@ -19,6 +20,12 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
     public LocalDameDePiqueGame(RandomDeck deck, List<Player> players) {
         super(deck, players);
         distributeCards(deck, players);
+    }
+    
+    public LocalDameDePiqueGame(DeterministDeck deck, List<Player> players) {
+
+        super(deck, players);
+
     }
 
     private void distributeCards(RandomDeck deck, List<Player> players) {
