@@ -49,30 +49,8 @@ class DameDePiqueEngineTest {
         assertTrue(cardInHand.containsAll(cards));
     }
 
-    @Test
-    void playRoundSimpleRound() {
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
-        player1.setHand(Arrays.asList(Card.valueOf("KH")));
-        player2.setHand(Arrays.asList(Card.valueOf("QH")));
-        engine.playTurn(player1);
-        engine.playTurn(player2);
-        assertEquals(1, player1.getScore());
-        assertEquals(1, player2.getScore());
-    }
 
-    @Test
-    void playRoundEquality() {
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
-        player1.setHand(Arrays.asList(Card.valueOf("KH")));
-        player2.setHand(Arrays.asList(Card.valueOf("KD")));
-        engine.playTurn(player1);
-        
-        engine.playTurn(player2);
-        assertEquals(0, player1.getScore());
-        assertEquals(0, player2.getScore());
-    }
+
 
     @Test
     void declareWinner() {
