@@ -47,7 +47,7 @@ public class Card {
             }
         }
 
-        deck.add(new Card(CardColor.NONE, CardValue.JOKER));
+        //deck.add(new Card(CardColor.NONE, CardValue.JOKER));
 
         return deck;
     }

@@ -1,43 +1,48 @@
 package fr.pantheonsorbonne.miage.game;
 
+import fr.pantheonsorbonne.miage.exception.NoMoreCardException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import fr.pantheonsorbonne.miage.exception.NoMoreCardException;
-
 public class DeterministDeck extends Deck {
+    private List<Card> cards;
 
-    private final List<Card> predeterminedCards;
-
-    public DeterministDeck(List<Card> predeterminedCards) {
-        this.predeterminedCards = new ArrayList<>(predeterminedCards);
+    public DeterministDeck(List<Card> cards) {
+        this.cards = new ArrayList<>(cards);
     }
 
     @Override
-    public void shuffle() {
+    public List<Card> getAllCards() {
+        return new ArrayList<>(cards);
     }
 
     @Override
-    public List<Card[]> dealCards(int numberOfPlayers) {
-        if (numberOfPlayers <= 0 || this.predeterminedCards.size() % numberOfPlayers != 0) {
-            throw new IllegalArgumentException("Cannot evenly distribute cards among players.");
+    public Card drawCard() throws NoMoreCardException {
+        if (cards.isEmpty()) {
+            throw new NoMoreCardException();
         }
+        return cards.remove(0);
+    }
 
+    @Override
+    public List<Card[]> dealCards(int numPlayers) {
         List<Card[]> hands = new ArrayList<>();
-        int cardsPerPlayer = this.predeterminedCards.size() / numberOfPlayers;
+        int cardsPerPlayer = cards.size() / numPlayers;
 
-        for (int i = 0; i < numberOfPlayers; i++) {
-            hands.add(this.predeterminedCards.subList(i * cardsPerPlayer, (i + 1) * cardsPerPlayer).toArray(new Card[0]));
+        for (int i = 0; i < numPlayers; i++) {
+            Card[] hand = new Card[cardsPerPlayer];
+            for (int j = 0; j < cardsPerPlayer; j++) {
+                hand[j] = cards.remove(0);
+            }
+            hands.add(hand);
         }
 
         return hands;
     }
 
     @Override
-    public Card drawCard() throws NoMoreCardException {
-        if (this.predeterminedCards.isEmpty()) {
-            throw new NoMoreCardException();
-        }
-        return this.predeterminedCards.remove(0);
+    public void shuffle() {
+        Collections.shuffle(cards);
     }
 }

@@ -68,6 +68,7 @@ class DameDePiqueEngineTest {
         player1.setHand(Arrays.asList(Card.valueOf("KH")));
         player2.setHand(Arrays.asList(Card.valueOf("KD")));
         engine.playTurn(player1);
+        
         engine.playTurn(player2);
         assertEquals(0, player1.getScore());
         assertEquals(0, player2.getScore());

@@ -2,9 +2,11 @@ package fr.pantheonsorbonne.miage.game;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import fr.pantheonsorbonne.miage.exception.NoMoreCardException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract class DeckTest {
 
@@ -30,12 +32,29 @@ abstract class DeckTest {
     }
 
     @Test
-    void getCard() {
+    void getCard() throws NoMoreCardException {
         Card card = deck.getCard();
         Card newCard = null;
         do {
             assertNotEquals(card, newCard);
             newCard = deck.getCard();
         } while (newCard != null);
+    }
+
+    @Test
+    void testDrawAllCards() throws NoMoreCardException {
+        while (true) {
+            deck.getCard();
+        }
+    }
+
+    @Test
+    void testDrawCard() throws NoMoreCardException {
+        for (int i = 0; i < 52; i++) {
+            deck.getCard();
+        }
+        assertThrows(NoMoreCardException.class, () -> {
+            deck.getCard();
+        });
     }
 }

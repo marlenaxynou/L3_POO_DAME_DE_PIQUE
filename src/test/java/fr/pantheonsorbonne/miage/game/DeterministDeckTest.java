@@ -1,11 +1,8 @@
 package fr.pantheonsorbonne.miage.game;
 
 import org.junit.jupiter.api.Test;
-
 import fr.pantheonsorbonne.miage.exception.NoMoreCardException;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 
 public class DeterministDeckTest extends DeckTest {
