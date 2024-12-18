@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/**
- * This is the network player class for the Dame de Pique game.
- */
+
 public class DameDePiqueNetworkPlayer {
 
     static final String playerId = "Player-" + new Random().nextInt();

@@ -38,9 +38,7 @@ public class Player {
         return score;
     }
 
-    /**
-     * Calculate the score for this player based on the current hand.
-     */
+    
     public int calculerScore() {
         int score = 0;
 
@@ -49,15 +47,12 @@ public class Player {
                 CardValue cardValue = card.getValue();
                 CardColor cardColor = card.getColor();
 
-                // Check for Queen of Spades
                 if (cardValue == CardValue.QUEEN && cardColor == CardColor.SPADES) {
                     score += 13;
                 }
-                // Check for Heart cards
                 else if (cardColor == CardColor.HEARTS) {
                     score += 1;
                 }
-                // Check for Joker
                 else if (cardValue == CardValue.JOKER) {
                     score += 1;
                 }

@@ -9,9 +9,7 @@ import fr.pantheonsorbonne.miage.game.StandardDeck;
 import fr.pantheonsorbonne.miage.model.Game;
 import java.util.*;
 
-/**
- * This class implements the Dame de Pique game with the network engine
- */
+
 public class DameDePiqueNetworkEngine extends DameDePiqueGameEngine {
     private static final int PLAYER_COUNT = 4; // Assuming 4 players are needed
     private final Game dameDePiqueGame;
@@ -22,17 +20,13 @@ public class DameDePiqueNetworkEngine extends DameDePiqueGameEngine {
     }
 
     public static void main(String[] args) {
-        // Create the host facade
         HostFacade hostFacade = Facade.getFacade();
         hostFacade.waitReady();
 
-        // Set the name of the host player
         hostFacade.createNewPlayer("Host");
 
-        // Create a new game of Dame de Pique
         Game dameDePiqueGame = hostFacade.createNewGame("DAME_DE_PIQUE");
 
-        // Wait for enough players to join
         hostFacade.waitForExtraPlayerCount(PLAYER_COUNT);
 
         DameDePiqueNetworkEngine host = new DameDePiqueNetworkEngine(new StandardDeck(), hostFacade, new HashSet<>(dameDePiqueGame.getPlayers()), dameDePiqueGame);
@@ -40,9 +34,7 @@ public class DameDePiqueNetworkEngine extends DameDePiqueGameEngine {
         System.exit(0);
     }
 
-    /**
-     * Get the set of players initially in the game
-     */
+    
     @Override
     protected List<String> getInitialPlayers() {
         return new ArrayList<>(this.dameDePiqueGame.getPlayers());

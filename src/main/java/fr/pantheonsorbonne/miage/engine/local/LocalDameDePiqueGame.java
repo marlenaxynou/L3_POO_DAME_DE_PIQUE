@@ -34,18 +34,15 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
         }
     }
 
-    // Method to select the joker card randomly from cards that do not score points
     private Card pickJoker(List<Card> allCards) {
         List<Card> nonScoringCards = new ArrayList<>();
     
-        // Select cards that do not score points
         for (Card card : allCards) {
             if (card.getColor() != CardColor.HEARTS && card.getValue() != CardValue.QUEEN) {
                 nonScoringCards.add(card);
             }
         }
     
-        // Return a random non-scoring card as the joker and set its color to NONE
         Card joker = nonScoringCards.get(new Random().nextInt(nonScoringCards.size()));
         allCards.remove(joker);
         return new Card(CardColor.NONE, joker.getValue());
@@ -72,33 +69,28 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
     protected void playTurn(Player player) {
         System.out.println("\n" + player.getName() + " joue son tour :");
     
-        // Print player's current hand
         System.out.println("Cartes en main : " + cardsToString(playerHands.get(player)));
     
-        // Player plays a card (the first card in hand for simplicity)
         Card playedCard = playerHands.get(player).poll();
     
         if (playedCard != null) {
             System.out.println(player.getName() + " a joué la carte : " + playedCard.toFancyString());
     
-            // If Hearts are broken, a Heart card can be played
             if (playedCard.getColor() == CardColor.HEARTS && !heartsBroken) {
-                heartsBroken = true;  // Mark that Hearts are broken
+                heartsBroken = true;  
             }
     
-            // Add points based on the card played
             if (playedCard.getColor() == CardColor.HEARTS) {
-                player.addScore(1);  // +1 point for Hearts
+                player.addScore(1); 
             } else if (playedCard.getValue() == CardValue.QUEEN && playedCard.getColor() == CardColor.SPADES) {
-                player.addScore(13); // +13 points for Queen of Spades
+                player.addScore(13); 
             } else if (playedCard == jokerCard) {
-                player.addScore(1); // Joker counts as 1 point
+                player.addScore(1);
             }
         } else {
             System.out.println(player.getName() + " n'a plus de cartes.");
         }
     
-        // Print the scores after each player's turn
         printScores();
     }
 
@@ -113,10 +105,10 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
     protected boolean isGameOver() {
         for (Queue<Card> hand : playerHands.values()) {
             if (!hand.isEmpty()) {
-                return false;  // The game is not over if any player still has cards
+                return false; 
             }
         }
-        return true;  // The game is over if all hands are empty
+        return true;  
     }
 
     @Override
@@ -125,7 +117,7 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
 
         for (Player player : getPlayers()) {
             if (player.getScore() < winner.getScore()) {
-                winner = player;  // Player with the lowest score wins
+                winner = player;  
             }
         }
 
@@ -163,16 +155,16 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
 
             Player targetPlayer;
             switch (direction) {
-                case 1: // Pass to the left
+                case 1: 
                     targetPlayer = players.get((i + 1) % players.size());
                     break;
-                case 2: // Pass to the right
+                case 2:
                     targetPlayer = players.get((i - 1 + players.size()) % players.size());
                     break;
-                case 3: // Pass across
+                case 3: 
                     targetPlayer = players.get((i + 2) % players.size());
                     break;
-                default: // No passing
+                default: 
                     continue;
             }
 
