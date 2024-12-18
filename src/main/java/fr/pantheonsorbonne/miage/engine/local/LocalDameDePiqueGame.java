@@ -30,9 +30,9 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
 
     private void distributeCards(RandomDeck deck, List<Player> players) {
         List<Card> allCards = deck.getAllCards();
-        this.jokerCard = pickJoker(allCards); // Select the Joker card
+        this.jokerCard = pickJoker(allCards); 
 
-        // Add the joker card to the deck
+        
         allCards.add(jokerCard);
 
         List<List<Card>> hands = Card.dealCards(allCards, players.size());
