@@ -16,14 +16,16 @@ public abstract class Deck {
 
     protected void initializeDeck() {
         for (CardColor color : CardColor.values()) {
-            for (CardValue value : CardValue.values()) {
-                if (value == CardValue.JOKER) {
-                    cards.add(new Card(CardColor.NONE, value));
-                } else {
-                    cards.add(new Card(color, value));
+            if (color != CardColor.NONE) { // Exclude NONE color for regular cards
+                for (CardValue value : CardValue.values()) {
+                    if (value != CardValue.JOKER) { // Exclude JOKER value for regular cards
+                        cards.add(new Card(color, value));
+                    }
                 }
             }
         }
+        // Add only one Joker card
+        cards.add(new Card(CardColor.NONE, CardValue.JOKER));
     }
 
     public void shuffle() {

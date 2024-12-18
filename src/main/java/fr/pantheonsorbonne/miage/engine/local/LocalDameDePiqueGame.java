@@ -47,6 +47,7 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
     
         // Return a random non-scoring card as the joker and set its color to NONE
         Card joker = nonScoringCards.get(new Random().nextInt(nonScoringCards.size()));
+        allCards.remove(joker);
         return new Card(CardColor.NONE, joker.getValue());
     }
 
@@ -182,6 +183,7 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
     @Override
     public void play() {
         while (!isGameOver()) {
+            System.out.println("\n=== Round " + round + " ===");
             if (round <= 3) {
                 passCards();
             }
