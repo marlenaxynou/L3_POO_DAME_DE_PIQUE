@@ -26,23 +26,39 @@ public class DameDePiqueNetworkEngine extends DameDePiqueGameEngine {
     public static void main(String[] args) {
         HostFacade hostFacade = Facade.getFacade();
         hostFacade.waitReady();
-
+    
         hostFacade.createNewPlayer("Host");
-
+    
         Game dameDePiqueGame = hostFacade.createNewGame("DAME_DE_PIQUE");
-
+    
         hostFacade.waitForExtraPlayerCount(PLAYER_COUNT);
-
+    
         List<Player> players = new ArrayList<>();
         for (String playerName : dameDePiqueGame.getPlayers()) {
             players.add(new Player(playerName));
         }
-
+    
         DameDePiqueNetworkEngine host = new DameDePiqueNetworkEngine(new StandardDeck(), players, dameDePiqueGame);
-        host.play();
+    
+        while (true) {
+            host.play();
+            boolean gameOver = false;
+            for (Player player : players) {
+                if (player.getScore() >= 100) {
+                    gameOver = true;
+                    break;
+                }
+            }
+            if (gameOver) {
+                break;
+            }
+            host = new DameDePiqueNetworkEngine(new StandardDeck(), players, dameDePiqueGame);
+        }
+    
+        Player winner = host.determineWinner();
+        host.declareWinner(winner);
         System.exit(0);
     }
-
     
     protected List<String> getInitialPlayers() {
         return new ArrayList<>(this.dameDePiqueGame.getPlayers());

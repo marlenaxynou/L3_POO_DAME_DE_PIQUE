@@ -62,16 +62,33 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
                 new Player("Joueur3"),
                 new Player("Joueur4")
         );
-
+    
         RandomDeck deck = new RandomDeck();
         deck.shuffle();
-
+    
         System.out.println("=== Début de la partie de Dame de Pique ===\n");
         LocalDameDePiqueGame game = new LocalDameDePiqueGame(deck, players);
-        game.play();
+    
+        while (true) {
+            game.play();
+            boolean gameOver = false;
+            for (Player player : players) {
+                if (player.getScore() >= 100) {
+                    gameOver = true;
+                    break;
+                }
+            }
+            if (gameOver) {
+                break;
+            }
+            deck.shuffle();
+            game = new LocalDameDePiqueGame(deck, players);
+        }
+    
+        Player winner = game.determineWinner();
+        game.declareWinner(winner);
         System.exit(0);
     }
-
     @Override
     protected void playTurn(Player player) {
         System.out.println("\n" + player.getName() + " joue son tour :");
@@ -144,9 +161,12 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
         return sb.toString().trim();
     }
 
-    @Override
     protected List<String> getInitialPlayers() {
-        throw new UnsupportedOperationException("Unimplemented method 'getInitialPlayers'");
+        List<String> initialPlayers = new ArrayList<>();
+        for (Player player : getPlayers()) {
+            initialPlayers.add(player.getName());
+        }
+        return initialPlayers;
     }
 
     private void passCards() {
@@ -194,4 +214,5 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
         Player winner = determineWinner();
         declareWinner(winner);
     }
+    //testcommit
 }
