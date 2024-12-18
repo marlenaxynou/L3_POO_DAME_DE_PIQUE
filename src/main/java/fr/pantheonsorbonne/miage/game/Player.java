@@ -68,6 +68,21 @@ public class Player {
         return hand == null || hand.isEmpty();
     }
 
+    public boolean hasGrandChelem() {
+        boolean hasQueenOfSpades = false;
+        int heartCount = 0;
+
+        for (Card card : hand) {
+            if (card.getColor() == CardColor.HEARTS) {
+                heartCount++;
+            } else if (card.getColor() == CardColor.SPADES && card.getValue() == CardValue.QUEEN) {
+                hasQueenOfSpades = true;
+            }
+        }
+
+        return hasQueenOfSpades && heartCount == 13;
+    }
+
     /**
      * Selects cards to pass to another player.
      * 
@@ -78,14 +93,11 @@ public class Player {
             throw new IllegalStateException("Not enough cards to pass.");
         }
 
-        // Sort the hand by card value in descending order
         List<Card> sortedHand = new ArrayList<>(hand);
         sortedHand.sort(Comparator.comparing(Card::getValue).reversed());
 
-        // Select the top 3 highest-value cards to pass
         List<Card> cardsToPass = new ArrayList<>(sortedHand.subList(0, 3));
 
-        // Remove the selected cards from the hand
         hand.removeAll(cardsToPass);
 
         return cardsToPass;

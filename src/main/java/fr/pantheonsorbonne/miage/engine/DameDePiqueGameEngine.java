@@ -45,6 +45,7 @@ public abstract class DameDePiqueGameEngine {
                 player.calculerScore(); 
             }
 
+            checkGrandChelem();
             round++;
         }
 
@@ -73,6 +74,20 @@ public abstract class DameDePiqueGameEngine {
 
     protected abstract void declareWinner(Player winner);
 
+
+    private void checkGrandChelem() {
+        for (Player player : players) {
+            if (player.hasGrandChelem()) {
+                player.addScore(-player.getScore()); 
+                for (Player otherPlayer : players) {
+                    if (otherPlayer != player) {
+                        otherPlayer.addScore(26);
+                    }
+                }
+                break;
+            }
+        }
+    }
     protected abstract List<String> getInitialPlayers(); 
 
     public void afficherScores() {

@@ -15,7 +15,6 @@ public class DeterministDeck extends Deck {
 
     @Override
     public void shuffle() {
-        // Do nothing to maintain the predetermined order.
     }
 
     @Override

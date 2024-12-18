@@ -13,9 +13,9 @@ import java.util.*;
 public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
 
     private final Map<Player, Queue<Card>> playerHands = new HashMap<>();
-    private boolean heartsBroken = false;  // Track if Hearts are broken
-    private Card jokerCard; // Track the Joker card for this round
-    private int round = 1; // Track the current round
+    private boolean heartsBroken = false;  
+    private Card jokerCard; 
+    private int round = 1; 
 
     public LocalDameDePiqueGame(RandomDeck deck, List<Player> players) {
         super(deck, players);

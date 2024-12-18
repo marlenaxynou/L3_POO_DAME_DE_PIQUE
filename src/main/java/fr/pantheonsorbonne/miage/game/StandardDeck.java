@@ -18,15 +18,14 @@ public class StandardDeck extends Deck {
     @Override
     protected void initializeDeck() {
         for (CardColor color : CardColor.values()) {
-            if (color != CardColor.NONE) { // Exclude NONE color
+            if (color != CardColor.NONE) { 
                 for (CardValue value : CardValue.values()) {
-                    if (value != CardValue.JOKER) { // Exclude JOKER value
+                    if (value != CardValue.JOKER) { 
                         cards.add(new Card(color, value));
                     }
                 }
             }
         }
-        // Add only one Joker card
         cards.add(new Card(CardColor.NONE, CardValue.JOKER));
     }
 

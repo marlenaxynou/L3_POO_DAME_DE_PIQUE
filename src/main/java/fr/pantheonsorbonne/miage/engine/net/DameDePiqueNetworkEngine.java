@@ -43,7 +43,7 @@ public class DameDePiqueNetworkEngine extends DameDePiqueGameEngine {
         System.exit(0);
     }
 
-    @Override
+    
     protected List<String> getInitialPlayers() {
         return new ArrayList<>(this.dameDePiqueGame.getPlayers());
     }
