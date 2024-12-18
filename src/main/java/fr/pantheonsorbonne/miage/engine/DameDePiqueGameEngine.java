@@ -73,7 +73,7 @@ public abstract class DameDePiqueGameEngine {
 
     protected abstract void declareWinner(Player winner);
 
-    protected abstract List<String> getInitialPlayers(); // Add this line here
+    protected abstract List<String> getInitialPlayers(); 
 
     public void afficherScores() {
         System.out.println("\n=== Scores à la fin de la partie ===");

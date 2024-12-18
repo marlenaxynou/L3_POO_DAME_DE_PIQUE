@@ -9,11 +9,9 @@ import fr.pantheonsorbonne.miage.enums.CardValue;
 import fr.pantheonsorbonne.miage.exception.NoMoreCardException;
 
 public class StandardDeck extends Deck {
-    private final List<Card> cards;
 
     public StandardDeck() {
-        this.cards = new ArrayList<>();
-        initializeDeck();
+        super();
         shuffle();
     }
 
@@ -46,7 +44,16 @@ public class StandardDeck extends Deck {
 
     @Override
     public List<Card[]> dealCards(int numberOfPlayers) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'dealCards'");
+        int cardsPerPlayer = cards.size() / numberOfPlayers;
+        List<Card[]> hands = new ArrayList<>();
+    
+        for (int i = 0; i < numberOfPlayers; i++) {
+            Card[] hand = new Card[cardsPerPlayer];
+            for (int j = 0; j < cardsPerPlayer; j++) {
+                hand[j] = cards.remove(cards.size() - 1);
+            }
+            hands.add(hand);
+        }
+        return hands;
     }
 }

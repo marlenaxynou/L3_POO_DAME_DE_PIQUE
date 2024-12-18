@@ -62,16 +62,15 @@ public class Player {
         return score;
     }
 
-    /**
-     * Checks if the player has no cards left in hand.
-     */
+    
     public boolean hasNoCards() {
         return hand == null || hand.isEmpty();
     }
 
     /**
-     * Selects cards to pass based on the game's rules.
-     * For now, this method is a placeholder.
+     * Selects cards to pass to another player.
+     * 
+     * @return The cards to pass.
      */
     public List<Card> selectCardsToPass() {
         // TODO: Implement logic for selecting cards to pass.

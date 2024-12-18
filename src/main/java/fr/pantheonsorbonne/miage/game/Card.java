@@ -47,7 +47,6 @@ public class Card {
             }
         }
 
-        // Add only one Joker card
         deck.add(new Card(CardColor.NONE, CardValue.JOKER));
 
         return deck;
@@ -116,4 +115,5 @@ public class Card {
     public int hashCode() {
         return Objects.hash(color, value);
     }
+    
 }

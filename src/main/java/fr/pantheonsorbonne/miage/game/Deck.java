@@ -6,6 +6,7 @@ import java.util.List;
 
 import fr.pantheonsorbonne.miage.enums.CardColor;
 import fr.pantheonsorbonne.miage.enums.CardValue;
+import fr.pantheonsorbonne.miage.exception.NoMoreCardException;
 
 public abstract class Deck {
     protected final List<Card> cards = new ArrayList<>();
@@ -38,4 +39,5 @@ public abstract class Deck {
     public abstract List<Card[]> dealCards(int numberOfPlayers);
 
     public abstract Card drawCard() throws NoMoreCardException;
+    
 }
