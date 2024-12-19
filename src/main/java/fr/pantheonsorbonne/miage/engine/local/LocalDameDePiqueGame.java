@@ -214,5 +214,22 @@ public class LocalDameDePiqueGame extends DameDePiqueGameEngine {
         Player winner = determineWinner();
         declareWinner(winner);
     }
+
+
+
+
+    public void setRound(int round) {
+
+        this.round = round;
+
+    }
+
+
+
+    public int getRound() {
+
+        return round;
+
+    }
     //testcommit
 }
