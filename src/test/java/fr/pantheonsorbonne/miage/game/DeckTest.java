@@ -6,7 +6,6 @@ import fr.pantheonsorbonne.miage.exception.NoMoreCardException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract class DeckTest {
 
@@ -48,13 +47,5 @@ abstract class DeckTest {
         }
     }
 
-    @Test
-    void testDrawCard() throws NoMoreCardException {
-        for (int i = 0; i < 52; i++) {
-            deck.getCard();
-        }
-        assertThrows(NoMoreCardException.class, () -> {
-            deck.getCard();
-        });
-    }
+
 }

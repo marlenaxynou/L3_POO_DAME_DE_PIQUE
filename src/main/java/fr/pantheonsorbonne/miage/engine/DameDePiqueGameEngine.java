@@ -75,7 +75,7 @@ public abstract class DameDePiqueGameEngine {
     protected abstract void declareWinner(Player winner);
 
 
-    protected void checkGrandChelem() {
+    public void checkGrandChelem() {
         for (Player player : players) {
             if (player.hasGrandChelem()) {
                 player.addScore(-player.getScore()); 
